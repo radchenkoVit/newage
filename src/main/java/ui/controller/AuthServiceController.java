@@ -2,11 +2,13 @@ package ui.controller;
 
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
+import lombok.extern.slf4j.Slf4j;
 import ui.congif.AuthServicePath;
 import ui.request.SignInRequest;
 
 import static io.restassured.RestAssured.given;
 
+@Slf4j
 public class AuthServiceController {
 
     @Step("Calling AuthService: /auth/signin with body: {0}")

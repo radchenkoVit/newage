@@ -31,7 +31,6 @@ public class RetrievePlayerProfileTest extends SetUpRunner {
         String token = AuthServiceController.auth(signInRequest);
 
         String expectedJsonObject  = ProfileController.retrieveProfiles(uuid, token);
-
         assertThat(expectedJsonObject, not(null));
     }
 }
