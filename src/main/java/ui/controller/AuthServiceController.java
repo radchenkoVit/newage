@@ -2,20 +2,21 @@ package ui.controller;
 
 import io.restassured.http.ContentType;
 import ui.congif.AuthServicePath;
+import ui.request.SignInRequest;
 
 import static io.restassured.RestAssured.given;
-import static java.lang.String.format;
 
 public class AuthServiceController {
 
-    public static String auth(String uuid) {
+    public static String auth(SignInRequest signIn) {
         return given()
-                .auth()
-                .none()
-                .header("Content-Type",  ContentType.JSON)
+                .log().all()
+                .header("Content-Type",  "application/json;charset=UTF-8")
             .when()
-                .post(format(AuthServicePath.AUTH_SIGNIN, uuid))
+                .body(signIn)
+                .post(AuthServicePath.AUTH_SIGNIN)
             .then()
+                .log().ifError()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
             .extract()

@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public enum Environment {
-    DEV("https://api.stage.beti.io/swagger_ui/"),
+    DEV("https://api.dev.hrzn.io/"),
     QA("NOT EXIST");
     private static Map<String, Environment> envMap = initEnvMap();
 
@@ -18,7 +18,7 @@ public enum Environment {
 
     public static String getBaseUri(String env) {
         if (env == null || env.isEmpty()) {
-            throw new RuntimeException("No Environment is set");
+            return DEV.uri;
         }
 
         if (envMap.containsKey(env)) {

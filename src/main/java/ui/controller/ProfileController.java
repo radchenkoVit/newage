@@ -3,28 +3,36 @@ package ui.controller;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
+import io.restassured.specification.RequestSpecification;
 import ui.congif.ProfileServicePath;
-import ui.response.ProfileServicesResponse;
+import ui.request.SignUpRequest;
 
 import static io.restassured.RestAssured.given;
 import static java.lang.String.format;
 
 public class ProfileController {
 
-    public static String singUp() {
-        return RestAssured.given()
+    public static String singUp(SignUpRequest signBody, String login, String password) {
+        RequestSpecification requestSpecification = RestAssured.given()
+                .log().all()
                 .auth()
-                .none()
+                .preemptive()
+                .basic(login, password)
             .when()
-                .post(ProfileServicePath.SIGN_UP_POST)
+                .header("Content-Type", "application/json")
+                .queryParam("brandId", "redbox")
+                .queryParam("send-mail", "false")
+                .body(signBody);
+
+    return requestSpecification.post(ProfileServicePath.SIGN_UP_POST)
             .then()
-                .statusCode(200)
+                .log().ifError().statusCode(200)
                 .contentType(ContentType.JSON)
             .extract()
                 .path("playerUUID");
     }
 
-    public static ProfileServicesResponse retrieveProfiles(String userUUID, String token) {
+    public static String retrieveProfiles(String userUUID, String token) {
         Header jwtTokenHeader = new Header("Authorization", "Bearer " + token);
 
         return given()
@@ -35,6 +43,6 @@ public class ProfileController {
                 .statusCode(200)
                 .contentType(ContentType.JSON)
             .extract()
-                .body().as(ProfileServicesResponse.class);
+                .body().as(String.class);
     }
 }
