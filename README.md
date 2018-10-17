@@ -12,6 +12,7 @@ Project requirements
 
 [Allure](https://docs.qameta.io/allure/#_installing_a_commandline) Allure is used to generate HTML report for test build
 
+[RestAssured](http://rest-assured.io/) Testing and validating REST services in Java 
 
 Library validation
 -------------

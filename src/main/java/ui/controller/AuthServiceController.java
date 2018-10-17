@@ -7,12 +7,14 @@ import ui.congif.AuthServicePath;
 import ui.request.SignInRequest;
 
 import static io.restassured.RestAssured.given;
+import static java.lang.String.format;
 
 @Slf4j
 public class AuthServiceController {
 
     @Step("Calling AuthService: /auth/signin with body: {0}")
     public static String auth(SignInRequest signIn) {
+        log.info(format("Call to AuthService/sighin, body: %s", signIn));
         return given()
                 .log().all()
                 .header("Content-Type",  "application/json;charset=UTF-8")
