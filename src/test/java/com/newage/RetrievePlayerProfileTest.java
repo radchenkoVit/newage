@@ -9,8 +9,6 @@ import ui.controller.ProfileController;
 import ui.request.SignInRequest;
 import ui.request.SignUpRequest;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.not;
 import static ui.utils.StringGenerator.generateEmail;
 import static ui.utils.StringGenerator.generateOnlyString;
 
@@ -30,7 +28,6 @@ public class RetrievePlayerProfileTest extends SetUpRunner {
         String uuid = ProfileController.singUp(signUpRequest, login, password);
         String token = AuthServiceController.auth(signInRequest);
 
-        String expectedJsonObject  = ProfileController.retrieveProfiles(uuid, token);
-        assertThat(expectedJsonObject, not(null));
+        ProfileController.validateRetrieveProfiles(uuid, token);
     }
 }

@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public enum Environment {
-    DEV("https://api.dev.hrzn.io/"),
+    DEV("https://api.dev.hrzn.io"),
     QA("NOT EXIST");
     private static Map<String, Environment> envMap = initEnvMap();
 
